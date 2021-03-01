@@ -3,3 +3,5 @@ db.sqlite3
 */*/__pycache__/*
 */*/*/__pycache__/*
 media/images/*
+local_setting.py
+local_api_key.py

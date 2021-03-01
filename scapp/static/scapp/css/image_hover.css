@@ -1,0 +1,21 @@
+.zoomIn img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+.zoomIn:hover img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+/*ズームアウト*/
+.zoomOut img {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+.zoomOut:hover img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}

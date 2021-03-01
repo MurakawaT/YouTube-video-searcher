@@ -1,0 +1,57 @@
+{% extends "scapp/base.html" %}
+
+{% block title %}トピック一覧{% endblock title %}
+
+{% block content %}
+
+<br>{{notice_txt}}
+<h5 class="mt-4 border-bottom">解析済みのチャンネル一覧</h3><br>
+<table class="table table-striped table-bordered">
+    <tbody>
+    <tr>
+        <th>タイトル</th>
+        <th>解析日</th>
+    </tr>
+    {% for channel in channels %}
+    <tr>
+        <th>
+            <a href="{% url 'scapp:scapp_list' channel_id=channel.id maxtopic_num=4 %}" class="btn btn-link btn-sm">
+                {{channel.channel_name}}
+            </a>
+        </th>
+        <th>
+            {{channel.created_date}}
+        </th>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h5 class="mt-4 border-bottom">解析待ち・解析中のチャンネル一覧</h3><br>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <th>タイトル</th>
+            <th>追加日</th>
+            <th>ステータス</th>
+        </tr>
+        {% for holdChannel in holdChannels %}
+        <tr>
+            <td>
+                {{holdChannel.search_word}}
+            </td>
+            <td>
+                {{holdChannel.created_date}}
+            </td>
+            <td>
+                {% if holdChannel.status == 3 %}
+                    解析中
+                {% else %}
+                    解析待ち
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

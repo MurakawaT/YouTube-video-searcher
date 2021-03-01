@@ -1,0 +1,34 @@
+{% extends "scapp/base.html" %}
+
+{% block title %}トピック一覧{% endblock title %}
+
+{% block content %}
+<h5 class="mt-4 border-bottom">このチャンネルの基礎情報</h3><br>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <th scope="row">チャンネル名</th>
+            <td>{{channel.channel_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">動画投稿数</th>
+            <td>{{movies|length}}</td>
+        </tr>
+        <tr>
+            <th scope="row">計算に使用したコメント数</th>
+            <td>{{comments|length}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h5 class="mt-4 border-bottom">このチャンネル内のトピック一覧</h3><br>
+<table class="table table-striped table-bordered">
+    <tbody>
+    {% for topic in topic_images %}
+    <a href="{% url 'scapp:scapp_detail' topicImage_id=topic.id %}" class="column col-xs-6 zoomIn">
+        <img src='{{MEDIA_URL}}{{topic.wc_image}}'  hspace="10" vspace="10">
+    </a>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

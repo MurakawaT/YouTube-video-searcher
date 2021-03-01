@@ -1,0 +1,51 @@
+{% load i18n static %}
+{% load bootstrap4 %}
+
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:'ja'}}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'scapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'scapp/css/image_hover.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="mt-4 border-bottom">YouTube video searcher in the selected channel</h3><br>
+        <form action="{% url 'scapp:scapp_search' %}" method="post">
+            {% csrf_token %}
+            <div class="offset-md-2 col-md-9">
+                <label>YouTubeチャンネル名を入力</label><br>
+                {% if channel %}
+                <input type="text" name="target_channel_name" size="40" maxlength="50" value="{{channel.channel_name}}">
+                {% else %}
+                <input type="text" name="target_channel_name" size="40" maxlength="50" placeholder="NoCopyrightSounds">
+                {% endif %}
+                <button type="submit" class="btn btn-primary">検索</button>
+                <br>
+                <label>トピックの分割数 : </label>
+                <select name="maxtopic_num">
+                {% for maxT in maxtopic_range %}
+                    {% if maxtopic_num == maxT %}
+                        <option value="{{maxT}}" selected>{{maxT}}</option>
+                    {% else %}
+                        <option value="{{maxT}}">{{maxT}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <br>
+            </div>
+        </form>
+        <br>
+        <a href="{% url 'scapp:scapp_search' %}" class="btn btn-primary btn-sm">解析済みチャンネル一覧へ</a>
+        <br>
+        {% block content %}
+        {{ content }}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
