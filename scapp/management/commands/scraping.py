@@ -162,9 +162,10 @@ def get_comment_info(video_yid):
             videoId=video_yid
         ).execute()
     except:
-        print("comments phase : max quota")
-        return(comments, video_yid)
-     # 失敗したとき今のvideo_IDを返す
+        print("comments phase : max quota or comment-off movie")
+        # 失敗したときはその動画のコメント収集を諦める->コメント非表示動画であるの可能性が高い
+        # return(comments, video_yid)
+        return(comments, None)
 
     for response_comment in response_comments.get("items"):
         txt = response_comment["snippet"]['topLevelComment']['snippet']['textOriginal']
